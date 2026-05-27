@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halsey: The Discography Experience</title>
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* ¡OJO AQUÍ, BRIAN!: 
+           Hicimos que el body sea el que controle el color de fondo global.
+           Le pusimos un "transition" de 0.8 segundos para que cuando el color cambie,
+           no sea un golpe brusco, sino que se desvanezca suave y elegante.
+        */
+        body {
+            background-color: #1a2a3a; /* Color inicial (Badlands) */
+            color: #ffffff;
+            overflow-x: hidden;
+            transition: background 0.8s ease; /* <--- LA MAGIA DEL EFECTO SUAVE */
+        }
+
+        /* Menú de Navegación Fijo */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        nav a:hover { color: #fff; }
+
+        /* Quitamos los fondos individuales de las secciones 
+           y las dejamos transparentes para que se vea el fondo del body.
+        */
+        section {
+            min-height: 100vh;
+            padding: 100px 10% 60px 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+            background: transparent; /* <--- Transparentes para ver el cambio */
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            z-index: 10;
+        }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            line-height: 1.8;
+            color: #ddd;
+            z-index: 10;
+            margin-bottom: 30px;
+        }
+
+        .btn-animar {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+            cursor: pointer;
+            z-index: 10;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+
+        .btn-animar:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* --- EFECTOS DE LAS ANIMACIONES --- */
+        #badlands h1 { color: #64ffda; }
+        @keyframes shake {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(-5px, 5px) skew(5deg); }
+            40% { transform: translate(5px, -5px) skew(-5deg); }
+            60% { transform: translate(-5px, -5px); }
+            80% { transform: translate(5px, 5px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        #hfk h1 { color: #ffb703; }
+        .heart {
+            position: absolute;
+            color: #ff0055;
+            font-size: 24px;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall 3s linear forwards;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        #manic h1 { color: #ff70a6; }
+
+        #iicliwp h1 { color: #d62828; text-shadow: 0 0 15px rgba(214,40,40,0.6); }
+        .flame-particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: floatUp 2s ease-out forwards;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100px) scale(1); opacity: 0.8; }
+            100% { transform: translateY(-300px) scale(0); opacity: 0; }
+        }
+
+        #the-great h1 { color: #edf2f4; transition: transform 0.5s; }
+        .mirror-effect { transform: scaleX(-1) rotate(5deg); filter: blur(2px) grayscale(50%); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#badlands">Badlands</a>
+        <a href="#hfk">HFK</a>
+        <a href="#manic">Manic</a>
+        <a href="#iicliwp">IICLIWP</a>
+        <a href="#the-great">The Great Impersonator</a>
+    </nav>
+
+    <section id="badlands" data-color="#1a2a3a">
+        <h1 id="title-badlands">Badlands (2015)</h1>
+        <p>El álbum debut conceptual que posicionó a Halsey en el ojo público. Ambientado en una distopía futurista y desértica...</p>
+        <button class="btn-animar" onclick="animarBadlands()">Activar Glitch Mental</button>
+    </section>
+
+    <section id="hfk" data-color="#121026">
+        <h1 id="title-hfk">hopeless fountain kingdom (2017)</h1>
+        <p>Una reinterpretación moderna y mística de Romeo y Julieta bajo una perspectiva queer y bisexual...</p>
+        <button class="btn-animar" onclick="animarHFK()">Lluvia de Corazones Rotos</button>
+    </section>
+
+    <section id="manic" data-color="#4a154b">
+        <h1 id="title-manic">Manic (2020)</h1>
+        <p>El álbum más autobiográfico e introspectivo de su carrera. Descrito por ella misma como un disco escrito por "Ashley"...</p>
+        <button class="btn-animar" onclick="animarManicClick()">Simular Caos Cromático</button>
+    </section>
+
+    <section id="iicliwp" data-color="#3a0606">
+        <h1 id="title-iicliwp">If I Can't Have Love, I Want Power (2021)</h1>
+        <p>Una obra maestra conceptual de rock industrial producida por Trent Reznor y Atticus Ross (Nine Inch Nails)...</p>
+        <button class="btn-animar" onclick="animarIicliwp()">Encender Llamas del Poder</button>
+    </section>
+
+    <section id="the-great" data-color="#181a24">
+        <h1 id="title-the-great">The Great Impersonator (2024)</h1>
+        <p>Un disco profundamente conmovor y camaleónico donde Halsey explora su propia mortalidad tras enfrentar severas crisis de salud...</p>
+        <button class="btn-animar" onclick="animarTheGreat()">Efecto Espejo Dual</button>
+    </section>
+
+    <script>
+        /* =========================================================
+           ¡ESTA ES LA PARTE NUEVA PARA EXPLICARLE AL MAESTRO!
+           ========================================================= */
+        
+        // Escuchamos el evento de scroll (cuando el usuario baja o sube en la página)
+        window.addEventListener('scroll', () => {
+            const secciones = document.querySelectorAll('section');
+            const scrollActual = window.scrollY; // Qué tanto ha bajado el usuario en pixeles
+
+            secciones.forEach(seccion => {
+                const distanciaAlToque = seccion.offsetTop; // Dónde empieza la sección
+                const alturaSeccion = seccion.offsetHeight; // Cuánto mide la sección
+
+                // Si la pantalla está parada dentro del rango de esta sección...
+                if (scrollActual >= distanciaAlToque - 300 && scrollActual < distanciaAlToque + alturaSeccion - 300) {
+                    // Tomamos el color guardado en 'data-color' y se lo aplicamos al fondo del body
+                    const nuevoColor = seccion.getAttribute('data-color');
+                    document.body.style.backgroundColor = nuevoColor;
+                }
+            });
+        });
+
+
+        /* --- BOTONES DE ANIMACIONES --- */
+        function animarBadlands() {
+            const title = document.getElementById('title-badlands');
+            title.style.animation = 'shake 0.3s infinite';
+            setTimeout(() => { title.style.animation = 'none'; }, 1500);
+        }
+
+        function animarHFK() {
+            const hfkSection = document.getElementById('hfk');
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = '💔';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = Math.random() * 2 + 2 + 's';
+                    hfkSection.appendChild(heart);
+                    setTimeout(() => { heart.remove(); }, 4000);
+                }, i * 150);
+            }
+        }
+
+        // Esta función ahora solo cambia colores momentáneamente al hacer click, respetando el scroll
+        function animarManicClick() {
+            const body = document.body;
+            const colores = ['#ff70a6', '#ff9770', '#70d6ff'];
+            let i = 0;
+            const intervalo = setInterval(() => {
+                body.style.backgroundColor = colores[i];
+                i++;
+                if(i >= colores.length) { 
+                    clearInterval(intervalo);
+                    body.style.backgroundColor = '#4a154b'; // Regresa al color original de Manic
+                }
+            }, 250);
+        }
+
+        function animarIicliwp() {
+            const section = document.getElementById('iicliwp');
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const flame = document.createElement('div');
+                    flame.classList.add('flame-particle');
+                    flame.style.left = Math.random() * 80 + 10 + '%';
+                    flame.style.bottom = '10%';
+                    const size = Math.random() * 40 + 10;
+                    flame.style.width = size + 'px';
+                    flame.style.height = size + 'px';
+                    flame.style.background = Math.random() > 0.5 ? '#d62828' : '#fcbf49';
+                    section.appendChild(flame);
+                    setTimeout(() => { flame.remove(); }, 2000);
+                }, i * 50);
+            }
+        }
+
+        function animarTheGreat() {
+            const title = document.getElementById('title-the-great');
+            title.classList.toggle('mirror-effect');
+        }
+    </script>
+</body>
+</html>
